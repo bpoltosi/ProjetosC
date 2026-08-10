@@ -1,4 +1,4 @@
-\* calculo de valor do fatorial de 'n' *\
+/* calculo de valor do fatorial de 'n' */
 
 #include <stdio.h>
 
