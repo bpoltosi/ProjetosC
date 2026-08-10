@@ -1,4 +1,4 @@
-\* exercicio em C, recebe input de 'n' notas pelo terminal, exibe o conceito do aluno e calcula a media geral no final *\
+/* exercicio em C, recebe input de 'n' notas pelo terminal, exibe o conceito do aluno e calcula a media geral no final */
 
 #include <stdio.h>
 
