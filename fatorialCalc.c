@@ -1,4 +1,4 @@
-/* calculo de valor do fatorial de 'n' */
+/* calculo de valor do fatorial de 'n', com validação de entrada (negativos) */
 
 #include <stdio.h>
 
@@ -11,7 +11,7 @@ int main(void) {
         scanf("%d", &valorN);
 
         if (valorN < 0) {
-            printf("Valor invalido! Digite um numero maior ou igual a 0.\n");
+            printf("Valor inválido! Digite um numero maior ou igual a 0 \n");
         }
 
     } while (valorN < 0);
