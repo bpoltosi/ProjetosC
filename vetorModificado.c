@@ -1,7 +1,5 @@
-/* Crie um código em C que declare e leia um vetor de 12 posições de
-inteiros. Em seguida, percorra o vetor substituindo todos os números negativos
-encontrados pelo valor 0, e todos os números ímpares positivos pelo valor 1.
-Imprima o vetor resultante modificado.*/
+/* código que declare e leia um vetor de 12 posições de inteiros. Em seguida, percorre o vetor substituindo todos os números negativos
+encontrados pelo valor 0, e todos os números ímpares positivos pelo valor 1. Imprimindo o vetor resultante modificado. */
 
 #include <stdio.h>
 
@@ -16,12 +14,12 @@ int main(void) {
 
 	for (int i = 0; i < 12; i++) {
 
-		if (vetor[i] < 0);
+		if (vetor[i] < 0)
 		{
 			vetor[i] = 0;
 		}
 
-		if(vetor[i] % 2 != 0 && vetor[i] > 0);
+		if(vetor[i] % 2 != 0 && vetor[i] > 0)
 		{
 			vetor[i] = 1;
 		}
