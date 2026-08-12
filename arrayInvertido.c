@@ -1,7 +1,5 @@
-/* Escreva um algoritmo que declare um vetor de inteiros com capacidade
-para 8 elementos. O programa deve ler os 8 números do teclado via laço de
-repetição e, em seguida, utilizar um segundo laço para exibir todos os elementos do
-vetor na ordem inversa à que foram digitados */
+/* algoritmo le 8 números inputados via laço de repetição e, em seguida,
+utiliza um segundo laço para exibir todos os elementos do vetor na ordem inversa à que foram digitados */
 
 #include <stdio.h>
 
@@ -16,11 +14,13 @@ int main(void) {
 	}
 
 	for(int i = 0; i < 8; i++) {
-		valoresInvertidos[i] = valores[7-i];
+		valoresInvertidos[i] = valores[8-i];
 	}
 
-	printf("Sequencia inversa dos numeros informados: %d", valoresInvertidos);
+	printf("Sequencia inversa dos numeros informados:\n");
+
+	for (int i = 1; i < 9; i++) {
+		printf("%d, ", valoresInvertidos[i]);
+	}
 	return 0;
 }
-
-/* ainda esta errado! */
