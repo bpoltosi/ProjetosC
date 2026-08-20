@@ -23,6 +23,7 @@ int main()
 		}
 	}
 
+	//valida simetria
 	for(int i=0; i<n; i++) {
 		for(int j=0; j<n; j++) {
 			if(matriz[i][j] != matriz[j][i]) {
