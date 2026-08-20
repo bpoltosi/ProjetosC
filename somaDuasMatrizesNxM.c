@@ -51,7 +51,7 @@ int main()
 		}
 	}
 
-	//exibicao da Matriz Transposta
+	//exibicao da Matriz Soma
 	printf("\n Matriz Soma: \n");
 	for(int i=0; i<n; i++) {
 		for(int j=0; j<m; j++) {
