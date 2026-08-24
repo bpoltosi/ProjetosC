@@ -20,7 +20,7 @@ int main(void){
     for (int i = 0; i < 3; i++) {       // percorrer matriz
         for (int j = 0; j < 4; j++)
         {
-            matriz[i][j] == i+j;        // atribuir valores matriz[i][j] == i+j
+            matriz[i][j] = (i+j);        // atribuir valores matriz[i][j] == i+j
         }
     }
 

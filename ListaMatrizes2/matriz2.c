@@ -2,10 +2,12 @@
 armazenado em uma linha L e coluna C fornecidas pelo usuário. */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main(void){
 
-    int matriz [4][3];
+    float matriz [4][3];
     int linha;
     int coluna;
 
@@ -20,7 +22,7 @@ int main(void){
 /*    for (int i = 0; i < 4; i++){                                            // receber matriz
         for (int j = 0; j < 3; j++){
             printf("Informe o valor correspondente a linha [%d] e coluna [%d]: ", i+1, j+1);
-            scanf("%d", &matriz[i][j]);
+            scanf("%f", &matriz[i][j]);
         }
     }
 */

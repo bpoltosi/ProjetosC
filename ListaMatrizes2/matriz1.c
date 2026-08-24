@@ -12,6 +12,15 @@ int main(void){
     int matrizA [5][5];
     int matrizB [5][5];
 
+/*      
+        for (int i = 0; i < 5; i++){                                            // receber matrizA
+            for (int j = 0; j < 5; j++){
+                printf("Informe o valor correspondente a linha [%d] e coluna [%d] da MatrizA: ", i+1, j+1);
+                scanf("%f", &matrizA[i][j]);
+            }
+        }
+*/
+
     srand(time(NULL));      // gerar matrizA[5][5]
     
     for (int i = 0; i < 5; i++) {
