@@ -1,30 +1,27 @@
-/* Le uma matriz quadrada N x N e verifica se ela é simétrica (matriz[i][j] == matriz[j][i]) para todo i e j.
-Imprime "Simétrica" ou "Assimétrica" para os resultados. */
+/* Escreva um programa que leia uma matriz quadrada N x N e verifique se ela é
+simétrica, ou seja, se matriz[i][j] é igual a matriz[j][i] para todo i e j. Imprima
+"Simétrica" ou "Assimétrica". */
 
 #include <stdio.h>
 
-int main()
-{
+int main(){
 
-	int n;
+int n;
 
-	//leitura de N
-	printf("Digite o valor de N: ");
+printf("Digite o valor de N: ");		//leitura de N
 	scanf("%d", &n);
 
-	int matriz[n][n];
-	int simetrico = 1;
+int matriz[n][n];
+int simetrico = 1;
 
-	//leitura da matriz
-	for(int i=0; i<n; i++) {
+	for(int i=0; i<n; i++) {				//leitura da matriz
 		for(int j=0; j<n; j++) {
 			printf("Informe os valores da %d linha, coluna %d: ", (i+1), (j+1));
 			scanf("%d", &matriz[i][j]);
 		}
 	}
 
-	//valida simetria
-	for(int i=0; i<n; i++) {
+	for(int i=0; i<n; i++) {			// valida simetria
 		for(int j=0; j<n; j++) {
 			if(matriz[i][j] != matriz[j][i]) {
 				simetrico = 0;
@@ -32,10 +29,10 @@ int main()
 		}
 	}
 	if (simetrico) {
-		printf("Matriz Simetrica!");
+		printf("Matriz Simetrica!");	// printa simetria
 
 	} else {
-		printf("Matriz Assimetrica!");
+		printf("Matriz Assimetrica!");	//printa assimetria
 	}
-	return 0;
+return 0;
 }

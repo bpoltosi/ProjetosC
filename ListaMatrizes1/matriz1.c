@@ -6,7 +6,7 @@ a matriz em forma de grade (uma linha da matriz por linha de tela). */
 
 int main(void) {
 
-	int matriz[3][3];
+int matriz[3][3];
 
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -21,5 +21,5 @@ int main(void) {
 		}
 		printf("\n");
 	}
-	return 0;
+return 0;
 }

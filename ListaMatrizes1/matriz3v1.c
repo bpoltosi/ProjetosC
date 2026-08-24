@@ -5,18 +5,17 @@ Informe qual linha e qual coluna têm a maior soma.*/
 
 int main(void) {
 
-	int somaPrincipal = 0;
-	int matriz[4][4] = {
-		{10,2,35,41},
-		{53,61,7,3},
-		{90,10,17,12},
-		{13,14,15,16}
-	};
+int somaPrincipal = 0;
+int matriz[4][4] = {
+	{10,2,35,41},
+	{53,61,7,3},
+	{90,10,17,12},
+	{13,14,15,16}};
 
-	int somaMaiorLinha = 0;
-	int somaMaiorColuna = 0;
-	int qualMaiorLinha;
-	int qualMaiorColuna;
+int somaMaiorLinha = 0;
+int somaMaiorColuna = 0;
+int qualMaiorLinha;
+int qualMaiorColuna;
 
 	//recebe os valores
 	/*
@@ -29,35 +28,33 @@ int main(void) {
 	}
 	*/
 
-	//soma valores da linha
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {						//soma valores da linha
 		int soma_linha = 0;
 		for (int j = 0; j < 4; j++) {
 			soma_linha += matriz[i][j];
 		}
 		printf("Soma da linha %d: %d\n", (i+1), soma_linha);
-		//verifica maior linha
-		if (i == 0 || somaMaiorLinha < soma_linha) {
+
+		if (i == 0 || somaMaiorLinha < soma_linha) {		//verifica maior linha
 			somaMaiorLinha = soma_linha;
 			qualMaiorLinha = i;
 		}
 	}
 
-	//soma valores da coluna
-	for (int j = 0; j < 4; j++) {
+	for (int j = 0; j < 4; j++) {			//soma valores da coluna
 		int soma_coluna = 0;
 		for (int i = 0; i < 4; i++) {
 			soma_coluna += matriz[i][j];
 		}
 		printf("Soma da coluna %d: %d\n", (j+1), soma_coluna);
-		//verifica maior coluna
-		if (j == 0 || somaMaiorColuna < soma_coluna) {
+
+		if (j == 0 || somaMaiorColuna < soma_coluna) {		//verifica maior coluna
 			somaMaiorColuna = soma_coluna;
 			qualMaiorColuna = j;
 		}
 	}
-	printf("Maior linha: %d \n", (qualMaiorLinha+1));
-	printf("Maior coluna: %d \n", (qualMaiorColuna+1));
+printf("Maior linha: %d \n", (qualMaiorLinha+1));		//printa maior linha
+printf("Maior coluna: %d \n", (qualMaiorColuna+1));		//printa maior coluna
 
-	return 0;
+return 0;
 }

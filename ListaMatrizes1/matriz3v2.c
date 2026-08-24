@@ -1,14 +1,18 @@
+/* Escreva um programa que leia uma matriz M x N de inteiros e, ao final,
+imprima a soma dos elementos de cada linha e a soma dos elementos de cada
+coluna. */
+
 #include <stdio.h>
 
 int main(void) {
 
-    int n;
-    int somaMaiorLinha = 0;
-    int somaMaiorColuna = 0;
-    int qualMaiorLinha;
-    int qualMaiorColuna;
+int n;
+int somaMaiorLinha = 0;
+int somaMaiorColuna = 0;
+int qualMaiorLinha;
+int qualMaiorColuna;
 
-    printf("Informe o valor de 'n' para uma matriz quadratica: ");	// recebe o valor de 'n'
+printf("Informe o valor de 'n' para uma matriz quadratica: ");	// recebe o valor de 'n'
     scanf("%d", &n);
 
     int matriz[n][n];
@@ -54,8 +58,8 @@ int main(void) {
         }
     }
 
-    printf("\nMaior linha: %d (soma = %d)\n", qualMaiorLinha + 1, somaMaiorLinha);
-    printf("Maior coluna: %d (soma = %d)\n", qualMaiorColuna + 1, somaMaiorColuna);
+printf("\nMaior linha: %d (soma = %d)\n", qualMaiorLinha + 1, somaMaiorLinha);
+printf("Maior coluna: %d (soma = %d)\n", qualMaiorColuna + 1, somaMaiorColuna);
 
 return 0;
 }
