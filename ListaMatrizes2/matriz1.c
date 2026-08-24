@@ -1,7 +1,7 @@
-/* Ler uma matriz A de ordem 5 e construir uma matriz B de mesma dimensão
-cada elemento de B deve ser o dobro de cada elemento correspondente da matriz A
-valores da diagonal principal de A são x3. 
-Apresentar a matriz B. */
+/* Ler uma matriz A de ordem 5 e construir uma matriz B de mesma dimensão,
+onde cada elemento de B deve ser o dobro de cada elemento correspondente da
+matriz A, com exceção para os valores situados na diagonal principal os quais
+devem ser o triplo de cada elemento correspondente a A. Apresentar a matriz B. */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,10 +9,10 @@ Apresentar a matriz B. */
 
 int main(void){
 
-    int matrizA [5][5] = {0};
-    int matrizB [5][5] = {0};
+    int matrizA [5][5];
+    int matrizB [5][5];
 
-    srand(time(NULL));
+    srand(time(NULL));      // gerar matrizA[5][5]
     
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++){
@@ -20,34 +20,28 @@ int main(void){
         }
     }
 
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
+    for (int i = 0; i < 5; i++){        // percorre matriz
+        for (int j = 0; j < 5; j++){
             if (i == j){
-                matrizB[i][j] = (matrizA[i][j] * 3);        
+                matrizB[i][j] = (matrizA[i][j] * 3);        // valores da diagonal principal de A são o triplo.
             } else {
-                matrizB[i][j] = (matrizA[i][j] * 2);
+                matrizB[i][j] = (matrizA[i][j] * 2);        // cada elemento da matrizB deve ser o dobro de cada elemento correspondente da matrizA 
             }
         }
     }
 
     
-    printf("\nMatriz A: \n");
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
+    printf("\nMatriz A: \n");               // printa matrizA
+    for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 5; j++){
             printf("%d, ", matrizA[i][j]);
         }
         printf("\n");
     }
 
-    printf("\nMatriz B: \n");
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
+    printf("\nMatriz B: \n");           // printa matrizB
+    for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 5; j++){
             printf("%d, ", matrizB[i][j]);
         }
         printf("\n");
