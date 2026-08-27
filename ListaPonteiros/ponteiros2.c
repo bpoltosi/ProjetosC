@@ -15,8 +15,8 @@ scanf("%d", &a);
 printf("Informe o valor de B: ");
 scanf("%d", &b);
 
-int *pa = a;
-int *pb = b;
+int *pa = &a;
+int *pb = &b;
 int aux;
 
 *pa = aux;
@@ -24,8 +24,8 @@ int aux;
 *pb = aux;
 
 // Imprime A e B
-printf("Valor de A: %d", pa);
-printf("Valor de B: %d", pb);
+printf("\nValor de A: %d", a);
+printf("\nValor de B: %d", b);
 
 return 0;
 }
