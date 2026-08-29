@@ -8,51 +8,57 @@ Calcule também a soma de todos os elementos, sempre pelo ponteiro  */
 #include <stdlib.h>
 #include <time.h>
 
-int main(){
-    
-int vetor[10];
-int *p = vetor;
-int somaElementos = 0;
+int main()
+{
 
-/*//  Le um Vetor[10]
-for (int i = 0; i < 10; i++) {
-    printf("Informe o valor da posição Vetor[%d]: ",i);
-    scanf("%d", (p+i));
-}*/
+    int vetor[10];
+    int *p = vetor;
+    int somaElementos = 0;
 
-// Gera um Vetor[10]
-srand(time(NULL));
-for (int i = 0; i < 10; i++) {
-        *(p+i) = rand() % 100;
-}
+    /*//  Le um Vetor[10]
+    for (int i = 0; i < 10; i++) {
+        printf("Informe o valor da posição Vetor[%d]: ",i);
+        scanf("%d", (p+i));
+    }*/
 
-//  Inicializa elementos dependentes
-int menorElemento = (*p);
-int maiorElemento = (*p);
-
-// Imprime Vetor[10]
-printf("Valores do Vetor: ");
-for (int i = 0; i < 10; i++) {
-    printf("%d, ", *(p+i));
-}
-
-//  Soma Elementos & Calcula Maior/Menor elemento
-for (int i = 0; i < 10; i++) {
-    int valorAtual = *(p + i);
-    somaElementos += valorAtual;    //soma
-
-    if (valorAtual > maiorElemento) {   //maior
-        maiorElemento = valorAtual;
+    // Gera um Vetor[10]
+    srand(time(NULL));
+    for (int i = 0; i < 10; i++)
+    {
+        *(p + i) = rand() % 100;
     }
-    if (valorAtual < menorElemento) {   //menor
-        menorElemento = valorAtual;
-    }
-}
-        
-// Imprime Resultados
-printf("\nValor da Soma dos Elementos: %d", somaElementos);
-printf("\nValor do Maior Elemento: %d", maiorElemento);
-printf("\nValor do Menor Elemento: %d", menorElemento);
 
-return 0;
+    //  Inicializa elementos dependentes
+    int menorElemento = (*p);
+    int maiorElemento = (*p);
+
+    // Imprime Vetor[10]
+    printf("Valores do Vetor: ");
+    for (int i = 0; i < 10; i++)
+    {
+        printf("%d, ", *(p + i));
+    }
+
+    //  Soma Elementos & Calcula Maior/Menor elemento
+    for (int i = 0; i < 10; i++)
+    {
+        int valorAtual = *(p + i);
+        somaElementos += valorAtual; // soma
+
+        if (valorAtual > maiorElemento)
+        { // maior
+            maiorElemento = valorAtual;
+        }
+        if (valorAtual < menorElemento)
+        { // menor
+            menorElemento = valorAtual;
+        }
+    }
+
+    // Imprime Resultados
+    printf("\nValor da Soma dos Elementos: %d", somaElementos);
+    printf("\nValor do Maior Elemento: %d", maiorElemento);
+    printf("\nValor do Menor Elemento: %d", menorElemento);
+
+    return 0;
 }

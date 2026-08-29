@@ -7,53 +7,64 @@ devem ser o triplo de cada elemento correspondente a A. Apresentar a matriz B. *
 #include <stdlib.h>
 #include <time.h>
 
-int main(void){
+int main(void)
+{
 
-    int matrizA [5][5];
-    int matrizB [5][5];
+    int matrizA[5][5];
+    int matrizB[5][5];
 
-/*      
-        for (int i = 0; i < 5; i++){                                            // receber matrizA
-            for (int j = 0; j < 5; j++){
-                printf("Informe o valor correspondente a linha [%d] e coluna [%d] da MatrizA: ", i+1, j+1);
-                scanf("%f", &matrizA[i][j]);
+    /*
+            for (int i = 0; i < 5; i++){                                            // receber matrizA
+                for (int j = 0; j < 5; j++){
+                    printf("Informe o valor correspondente a linha [%d] e coluna [%d] da MatrizA: ", i+1, j+1);
+                    scanf("%f", &matrizA[i][j]);
+                }
             }
-        }
-*/
+    */
 
-    srand(time(NULL));      // gerar matrizA[5][5]
-    
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++){
+    srand(time(NULL)); // gerar matrizA[5][5]
+
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
             matrizA[i][j] = rand() % 100;
         }
     }
 
-    for (int i = 0; i < 5; i++){        // percorre matriz
-        for (int j = 0; j < 5; j++){
-            if (i == j){
-                matrizB[i][j] = (matrizA[i][j] * 3);        // valores da diagonal principal de A são o triplo.
-            } else {
-                matrizB[i][j] = (matrizA[i][j] * 2);        // cada elemento da matrizB deve ser o dobro de cada elemento correspondente da matrizA 
+    for (int i = 0; i < 5; i++)
+    { // percorre matriz
+        for (int j = 0; j < 5; j++)
+        {
+            if (i == j)
+            {
+                matrizB[i][j] = (matrizA[i][j] * 3); // valores da diagonal principal de A são o triplo.
+            }
+            else
+            {
+                matrizB[i][j] = (matrizA[i][j] * 2); // cada elemento da matrizB deve ser o dobro de cada elemento correspondente da matrizA
             }
         }
     }
 
-    
-    printf("\nMatriz A: \n");               // printa matrizA
-    for (int i = 0; i < 5; i++){
-        for (int j = 0; j < 5; j++){
+    printf("\nMatriz A: \n"); // printa matrizA
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
             printf("%d, ", matrizA[i][j]);
         }
         printf("\n");
     }
 
-    printf("\nMatriz B: \n");           // printa matrizB
-    for (int i = 0; i < 5; i++){
-        for (int j = 0; j < 5; j++){
+    printf("\nMatriz B: \n"); // printa matrizB
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
             printf("%d, ", matrizB[i][j]);
         }
         printf("\n");
     }
-return 0;
+    return 0;
 }

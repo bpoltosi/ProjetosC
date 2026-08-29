@@ -3,7 +3,8 @@ no intervalo "n3", validando requisitos (Exceto Negativos ainda) */
 
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
 
     int valorResto;
     int valorDivisor;
@@ -18,7 +19,8 @@ int main(void) {
     scanf("%d", &valorDivisor);
 
     // Validar divisor diferente de 0
-    while (valorDivisor == 0) {
+    while (valorDivisor == 0)
+    {
         printf("Valor invalido para divisor! Tente novamente.\n");
 
         printf("Qual o valor do divisor? ");
@@ -26,11 +28,13 @@ int main(void) {
     }
 
     // Validar resto menor que divisor
-    if (valorResto >= valorDivisor) {
+    if (valorResto >= valorDivisor)
+    {
 
         printf("Valor invalido para Divisor e Resto (Resto >= Divisor).\n");
 
-        while (valorResto >= valorDivisor) {
+        while (valorResto >= valorDivisor)
+        {
 
             printf("Qual o valor deseja encontrar para o resto da divisao? ");
             scanf("%d", &valorResto);
@@ -39,7 +43,8 @@ int main(void) {
             scanf("%d", &valorDivisor);
 
             // Validar divisor diferente de 0
-            while (valorDivisor == 0) {
+            while (valorDivisor == 0)
+            {
                 printf("Valor invalido para divisor! Tente novamente.\n");
 
                 printf("Qual o valor do divisor? ");
@@ -55,7 +60,8 @@ int main(void) {
     scanf("%d", &valorFinalIntervalo);
 
     // Validar valor inicial menor que valor final
-    while (valorInicialIntervalo > valorFinalIntervalo) {
+    while (valorInicialIntervalo > valorFinalIntervalo)
+    {
 
         printf("Valor Inicial do intervalo MAIOR que Valor Final do intervalo! Tente novamente.\n");
 
@@ -67,9 +73,11 @@ int main(void) {
     }
 
     // Procurar numeros que possuem o resto desejado
-    for (int i = valorInicialIntervalo; i <= valorFinalIntervalo; i++) {
+    for (int i = valorInicialIntervalo; i <= valorFinalIntervalo; i++)
+    {
 
-        if (i % valorDivisor == valorResto) {
+        if (i % valorDivisor == valorResto)
+        {
 
             quantosNumerosAceitos++;
 
@@ -78,11 +86,13 @@ int main(void) {
     }
 
     // Validar saida de 0 numeros
-    if (quantosNumerosAceitos == 0) {
+    if (quantosNumerosAceitos == 0)
+    {
 
         printf("Nenhum numero atende aos requisitos.\n");
-
-    } else {
+    }
+    else
+    {
 
         printf("Foram descobertos %d numeros que atendem aos requisitos!\n",
                quantosNumerosAceitos);

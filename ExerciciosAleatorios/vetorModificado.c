@@ -3,32 +3,35 @@ encontrados pelo valor 0, e todos os números ímpares positivos pelo valor 1. I
 
 #include <stdio.h>
 
-int main(void) {
+int main(void)
+{
 
 	int vetor[12];
 
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 12; i++)
+	{
 		printf("Digite um valor: ");
 		scanf("%d", &vetor[i]);
 	}
 
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 12; i++)
+	{
 
 		if (vetor[i] < 0)
 		{
 			vetor[i] = 0;
 		}
 
-		if(vetor[i] % 2 != 0 && vetor[i] > 0)
+		if (vetor[i] % 2 != 0 && vetor[i] > 0)
 		{
 			vetor[i] = 1;
 		}
 	}
 
-    
 	printf("Resultado do vetor modificado: ");
 
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 12; i++)
+	{
 		printf("%d", vetor[i]);
 	}
 

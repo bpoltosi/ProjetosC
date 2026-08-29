@@ -5,27 +5,32 @@ posição dentro da matriz. */
 #include <stdlib.h>
 #include <time.h>
 
-int main(void){
+int main(void)
+{
 
     int matriz[3][4];
 
-    srand(time(NULL));      // gerar a matriz[3][4]
-    
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 4; j++){
+    srand(time(NULL)); // gerar a matriz[3][4]
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
             matriz[i][j] = rand() % 100;
         }
     }
 
-    for (int i = 0; i < 3; i++) {       // percorrer matriz
+    for (int i = 0; i < 3; i++)
+    { // percorrer matriz
         for (int j = 0; j < 4; j++)
         {
-            matriz[i][j] = (i+j);        // atribuir valores matriz[i][j] == i+j
+            matriz[i][j] = (i + j); // atribuir valores matriz[i][j] == i+j
         }
     }
 
-    printf("\nMatriz: \n");         // printar
-    for (int i = 0; i < 3; i++){
+    printf("\nMatriz: \n"); // printar
+    for (int i = 0; i < 3; i++)
+    {
         for (int j = 0; j < 4; j++)
         {
             printf("%d, ", matriz[i][j]);
@@ -33,5 +38,5 @@ int main(void){
         printf("\n");
     }
 
-return 0;
+    return 0;
 }
