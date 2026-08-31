@@ -1,3 +1,2 @@
-# linguagemProgramacaoUFSM
-espaço para armazenar e exibir exercicios da disciplina de Linguagem de Programação
-2026/2
+# ProjetosC
+espaço para armazenar e exibir exercicios em C
