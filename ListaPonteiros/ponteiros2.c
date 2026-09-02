@@ -20,10 +20,10 @@ int main()
     int *pb = &b;
     int aux;
 
-    *pa = aux;
+    aux = *pa; 
     *pa = *pb;
     *pb = aux;
-
+    
     // Imprime A e B
     printf("\nValor de A: %d", a);
     printf("\nValor de B: %d", b);
