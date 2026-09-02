@@ -2,8 +2,6 @@
     troque os valores entre elas usando ponteiros.  */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 int main()
 {
