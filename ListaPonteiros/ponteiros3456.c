@@ -1,6 +1,4 @@
-/*  1: Escreva um programa que declare uma variável inteira e um ponteiro para ela.
-    Usando o ponteiro, imprima o valor da variável e o seu endereço (com %p).
-    3: Escreva um programa que leia N números inteiros e os armazene em um vetor,
+/*  3: Escreva um programa que leia N números inteiros e os armazene em um vetor,
     usando um ponteiro para acessar cada posição durante a leitura.
     4: Escreva um programa que leia um vetor de N números inteiros e calcule a
     soma e a média dos elementos, percorrendo o vetor apenas com um ponteiro.
