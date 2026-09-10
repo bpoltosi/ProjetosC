@@ -54,3 +54,17 @@ while (*po != ’\0’) {
 
 *pd = ’\0’;
 printf("%s\n", destino);
+
+// Coloca em minusculas usando ponteiro
+char *p = palavra;
+while (*p != '\0') {
+	*p = tolower(*p);
+	p++;
+}
+
+// Coloca em maiusculas usando ponteiro
+char *p = palavra;
+while (*p != '\0') {
+	*p = toupper(*p);
+	p++;
+}
