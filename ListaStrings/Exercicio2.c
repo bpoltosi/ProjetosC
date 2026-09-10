@@ -52,6 +52,7 @@ int main()
 			*p = tolower(*p);
 			p++;
 		}
+		break;
 
 	default:
 		printf("Escolha inválida!");
