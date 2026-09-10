@@ -5,23 +5,36 @@ todos os caracteres por letras minúsculas. */
 #include <string.h>
 #include <ctype.h>
 
-// Recebe entrada da palavra
-char palavra[100];
-printf("Informe uma palavra: ");
-fgets(palavra,100, stdin);                    
+int main() {
+    char palavra[100];
 
-// Tira o "espaco final"
-if (tam > 0 && palavra[tam - 1] == '\n') {
-	palavra[tam - 1] = '\0';
-	tam--;
+    // Recebe entrada da palavra
+    printf("Informe uma palavra: ");
+    fgets(palavra, 100, stdin);
+
+    int tam = strlen(palavra);
+
+    // Tira o espaco final
+    if (tam > 0 && palavra[tam - 1] == '\n') {
+        palavra[tam - 1] = '\0';
+        tam--;
+    }
+
+    // Valida entrada
+    if (tam <= 0) {
+        printf("Nenhuma palavra informada.\n");
+        return 0;
+    }
+
+    // Coloca em minusculas usando ponteiro
+    char *p = palavra;
+    while (*p != '\0') {
+        *p = tolower(*p);
+        p++;
+    }
+
+    // Exibe o resultado
+    printf("Resultado: %s\n", palavra);
+
+    return 0;
 }
-
-// Valida entrada
-if (tam <= 0) {
-	printf("Nenhuma palavra informada.\n");
-	return 0;
-}
-
-// Coloca em minusculas
-while (*p != '\0' && *p != '\n') {
-  char atual = tolower(*p); 
