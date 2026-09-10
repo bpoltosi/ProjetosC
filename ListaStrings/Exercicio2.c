@@ -23,7 +23,7 @@ if (tam <= 0) {
 	return 0;
 }
 
-printf
+printf("Escolha 1 para Maiusculas\nEscolha 2 para Minusculas\n");
 
 // Coloca em minusculas
 while (*p != '\0' && *p != '\n') {
