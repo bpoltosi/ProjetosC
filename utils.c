@@ -5,9 +5,12 @@
 // strupr(destino) converter para maiúsculas
 // strlwr(destino) converter para minúsculas
 
-#include <stdio.h>
+#include <stdio.h> //biblio padrao
 #include <string.h>
 #include <ctype.h>
+
+// em ponteiros (p) representa o endereço
+// e (*p) representa o valor armazenado naquele endereço
 
 // Recebe entrada da palavra
 char palavra[100];
