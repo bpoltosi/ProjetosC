@@ -1,5 +1,5 @@
-/*  Escreva um programa que leia dois números inteiros em variáveis "a" e "b" e
-    troque os valores entre elas usando ponteiros.  */
+/* Escreva um programa que leia dois números inteiros em variáveis "a" e "b" e
+troque os valores entre elas usando ponteiros. */
 
 #include <stdio.h>
 

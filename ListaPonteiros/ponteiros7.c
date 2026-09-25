@@ -1,8 +1,6 @@
-/*
-ler Vetor[n] e inverter usando dois ponteiros
+/* Ler Vetor[n] e inverter usando dois ponteiros
 um no primeiro, outro no ultimo, trocando de valores
-ate se encontrarem no meio
-*/
+ate se encontrarem no meio */
 
 #include <stdio.h>
 #include <stdlib.h>

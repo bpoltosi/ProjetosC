@@ -1,5 +1,5 @@
 /*  1: Escreva um programa que declare uma variável inteira e um ponteiro para ela.
-    Usando o ponteiro, imprima o valor da variável e o seu endereço (com %p). */
+Usando o ponteiro, imprima o valor da variável e o seu endereço (com %p). */
 
 #include <stdio.h>
 
