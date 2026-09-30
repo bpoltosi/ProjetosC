@@ -26,17 +26,22 @@ int main (void)
 
     int *p1 = vetor;
     int maiorSoma = 0;
+    int *pontNumero1 = vetor;
+    int *pontNumero2= vetor;
+    int posicaoMaiorJanela = [0][0];
 
     for(int i=0; i<10; i++)
     {
         if (*p1 + *(p1+1) >= maiorSoma)
         {
             maiorSoma = *p1 + *(p1+1);
+            posicaoMaiorJanela = [p1][p1+1];
         }
         p1++;
     }
 
     printf("\nMaior soma: %d", maiorSoma);
+    printf("\nPosição da Maior Janela encontrada: %d", posicaoMaiorJanela);
 
     return 0;
 }

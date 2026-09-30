@@ -34,7 +34,7 @@ int main (void)
     }
 
     printf("MatrizC:\n");
-    for(int j =1; j<4; j++)
+    for(int j =0; j<3; j++)
     {
         printf("\nLinha %d: ", j);
         for(int i=0; i<5; i++)
