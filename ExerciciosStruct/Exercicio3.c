@@ -34,7 +34,7 @@ int main (void)
 			while ((c = getchar()) != '\n' && c != EOF);
 		}
 		
-		printf("\n--- Funcionario %d ---");
+		printf("\n--- Funcionario %d ---", (i+1));
 		
 		// recebe os nomes
 		printf("\nInforme o nome: ");
@@ -46,9 +46,11 @@ int main (void)
 			f[i].nome[tam - 1] = '\0';
 		}
 		
+        // Receber o salario
 		printf("\nInforme o salario: ");
-		scanf("%.2f", &f[i].salario);
+		scanf("%f", &f[i].salario);
 		
+        // Receber informacoes desejadas do funcionario
 		printf("\nInforme apenas o dia da data de admissao: ");
 		scanf("%i", &f[i].admissao.dia);
 		printf("\nInforme apenas o mes da data de admissao: ");
@@ -57,33 +59,42 @@ int main (void)
 		scanf("%i", &f[i].admissao.ano);
     }
     
+    // Recebe ano para pesquisa
     int anoBusca;
     printf("\nInforme um ano para buscar quantos funcionários foram admitidos antes desse ano ");
     scanf("%i", &anoBusca);
     
-    while (ano > 2026 || ano =< 0){
+    // Validacao do ano
+    while (anoBusca > 2027 || anoBusca <= 0){
         printf("\nAno inválido! \nInforme novamente: ");
         scanf("%i", &anoBusca);
     }
     
+    // Ponteiro para percorrer os funcionarios - erro!
     Funcionario *p = &f;
     int funcionariosAdmitidos = 0;
     
-    for(int i=0; i<anoBusca; i++){
+    // Contagem de funcionários admitidos antes do ano informado - erro!
+    for(int i=0; i<quantidadeFuncionarios; i++){
         if(*(p[i]) -> ano < anoBusca){
             funcionariosAdmitidos++;
         }
     }
     
-    printf("Foram admitidos %i funcionários antes do ano %d", funcionariosAdmitidos, anoBusca);
-    
+    // Variaveis para encontrar funcionario com maior salario - erro!
     Funcionario *p = &f;
-    int maiorSalario = 0;
+    float maiorSalario = 0;
+    char nomeMaiorSalario[50];
+
+    // Encontrar funcionário com maior salário - erro!
     for(int i=0; i<quantidadeFuncionarios;i++){
         if ( *(p[i]) -> salario > maiorSalario){
             maiorSalario = *(p[i] -> salario);
+            nomeMaiorSalario = nome;
         }
     }
     
+printf("Foram admitidos %i funcionários antes do ano %d", funcionariosAdmitidos, anoBusca);
+
 	return 0;
 }
