@@ -1,6 +1,6 @@
 /* Escreva um programa em C que:
 1 Defina um registro Produto com os campos nome, preco e quantidade;
-2 Leia os dados de um produto digitados pelo usuário;
+2 Leia os dados de dois produtos digitado pelo usuário;
 3 Imprima os dados lidos e o valor total em estoque (preco * quantidade). */
 
 #include <stdio.h>
