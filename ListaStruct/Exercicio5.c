@@ -57,7 +57,7 @@ int main(void)
 	}
 
 	int quantidadeAlunos = 0;
-	char linha[200];
+	char linha[200]; // Buffer temporário para ler a linha do cabeçalho
 
 	fgets(linha, sizeof(linha), arquivoAlunos); // Pula o cabeçalho
 
@@ -83,7 +83,7 @@ int main(void)
 		return 1;
 	}
 
-	rewind(arquivoAlunos);					  // Volta para o início do arquivo
+	rewind(arquivoAlunos);						// Volta para o início do arquivo
 	fgets(linha, sizeof(linha), arquivoAlunos); // Pula novamente o cabeçalho
 
 	// le arquivo alunos.csv
