@@ -1,0 +1,3 @@
+CPF,Endereco_Entrega,Itens(Cod*Qtd|...)
+11122233,Florianopolis-Av Beira Mar-2500,8*1
+99988877,Canoas-Av Victor Barreto-1200,9*1|1*3|4*3
