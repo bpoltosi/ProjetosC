@@ -3,7 +3,6 @@ Na main, leia um número N e, usando a função, imprima todos os números primo
 
 #include <stdio.h>
 
-
 int eh_primo(int n)
 {
 	// Dividir por 1 e por ele mesmo
@@ -27,28 +26,12 @@ int eh_par(int n)
 	return n % 2 == 0; // 1 se for par, 0 se for impar
 }
 
-int main(void)
-{
-	int n;
+void mostra_primos(int n){
 
-	// Recebe o valor de N
-	printf("Informe o valor desejado: ");
-	scanf("%d", &n);
+	// imprime os numeros primos de 1 até N
+	printf("\nNúmeros primos de 1 até %d:\n", n);
 
-	// verifica Par ou Impar
-	if (eh_par(n))
-	{
-		printf("\nPar\n");
-	}
-	else
-	{
-		printf("\nImpar\n");
-	}
-
-	// imprimir os numeros primos de 1 até N
-	printf("Números primos de 1 até %d:\n", n);
-
-	// laço para testar e imprimir todos os números de 1 até N
+	// laço para testar e imprimir todos os numeros
 	for (int i = 1; i <= n; i++)
 	{
 		if (eh_primo(i))
@@ -58,5 +41,29 @@ int main(void)
 	}
 	printf("\n");
 
-	return 0;
+	return;
+}
+
+int main(void)
+{
+	int n;
+
+	// recebe o valor de N
+	printf("Informe o valor desejado: ");
+	scanf("%d", &n);
+
+	// verifica Par ou Impar
+	if (eh_par(n))
+	{
+		printf("\nÉ Par\n");
+	}
+	else
+	{
+		printf("\nÉ Impar\n");
+	}
+
+    // chama a função para imprimir os primos de 1 até N
+    mostra_primos(n);
+
+    return 0;
 }
