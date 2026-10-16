@@ -15,6 +15,26 @@ typedef struct
     Cartela cartela;
 } Jogador;
 
+void aguardaEnter(void)
+{
+    printf("\nPressione ENTER para a proxima rodada...");
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+    {
+        // Descarta caracteres restantes da entrada
+    }
+}
+
+void limparTela()
+{
+#if defined(_WIN32) || defined(_WIN64)
+    system("cls"); // Executa no Windows antigo/padrão
+#else
+    system("clear"); // Executa no Linux e macOS
+#endif
+}
+
 int sortearNumero(int numerosSorteados[], int qtsNumerosSorteados)
 {
     if (qtsNumerosSorteados >= 60)
@@ -167,14 +187,22 @@ int main(void)
 
         int numeroSorteado = numerosSorteados[z - 1];
 
-        printf("\nNumero sorteado: %d\n", numeroSorteado);
-        printf("Na posicao: %d\n", z);
-
         marcaNumero(players, qtdJogadores, numeroSorteado);
+
+        limparTela();
+
+        printf("========== BINGO ==========\n");
+        printf("\nRodada: %d/60\n", z);
+        printf("Numero sorteado: %d\n", numeroSorteado);
 
         for (int i = 0; i < qtdJogadores; i++)
         {
             exibeCartela(players[i]);
+        }
+
+        if (z < 60)
+        {
+            aguardaEnter();
         }
     }
     return 0;
