@@ -5,6 +5,7 @@
 typedef struct
 {
     int numero[15];
+    int marcado[15]; // 1 para sorteado ; 0 para disponivel
 } Cartela;
 
 typedef struct
@@ -15,7 +16,12 @@ typedef struct
 } Jogador;
 
 int sortearNumero(int numerosSorteados[], int qtsNumerosSorteados)
-{ // ja valida o numero sorteado
+{
+    if (qtsNumerosSorteados >= 60)
+    { // verifica se ja nao foram sorteados os 60 numeros
+        return 0;
+    }
+
     int n = rand() % 60 + 1;
     int repetido = 1; // da a TAG inicialmente, para cair na validacao
 
@@ -38,8 +44,17 @@ int sortearNumero(int numerosSorteados[], int qtsNumerosSorteados)
 
 void armazenaNumeroSorteado(int numerosSorteados[], int *qtsNumerosSorteados)
 {
+    if (*qtsNumerosSorteados >= 60)
+    { // valida se ja nao foram sorteados os 60 numeros (60 sorteios)
+        return;
+    }
 
     int n = sortearNumero(numerosSorteados, *qtsNumerosSorteados);
+
+    if (n == 0)
+    { // valida se a funcao nao returnou zero, do caso de validacao da funcao para quando nao ha mais numeros disponiveis para sortear
+        return;
+    }
 
     numerosSorteados[*qtsNumerosSorteados] = n;
     (*qtsNumerosSorteados)++;
@@ -69,7 +84,8 @@ Cartela geraCartela(void)
                 }
             }
         }
-        cartela.numero[z] = n; // atribui o numero a cartela
+        cartela.numero[z] = n;  // atribui o numero a cartela
+        cartela.marcado[z] = 0; // marca os numeros como "nao marcados"
     }
     return cartela;
 }
@@ -95,12 +111,33 @@ void exibeCartela(Jogador jogador)
         if (i % 5 == 0)
             printf("|----|----|----|----|----|\n");
 
-        printf("| %2d ", jogador.cartela.numero[i]);
+        if (jogador.cartela.marcado[i])
+        {
+            printf("|%2d* ", jogador.cartela.numero[i]); // o asterisco '*' indica que o numero foi marcado (preciso melhorar - nao sei como)
+        }
+        else
+        {
+            printf("|%2d  ", jogador.cartela.numero[i]); // sem o asterisco (nao é um numero ja sorteado)
+        }
 
         if ((i + 1) % 5 == 0)
             printf("|\n");
     }
     printf("|----|----|----|----|----|\n");
+}
+
+void marcaNumero(Jogador players[], int qtdJogadores, int numeroSorteado)
+{
+    for (int i = 0; i < qtdJogadores; i++)
+    {
+        for (int j = 0; j < 15; j++)
+        {
+            if (players[i].cartela.numero[j] == numeroSorteado)
+            {
+                players[i].cartela.marcado[j] = 1; // marca o da tabela da pessoa se o numeroTabela == numeroSorteado
+            }
+        }
+    }
 }
 
 int main(void)
@@ -109,29 +146,36 @@ int main(void)
     int numerosSorteados[60];
     int qtdJogadores;
 
-    Jogador jogador;
-    Jogador players[qtdJogadores];
-    jogador.id = 1;
-
     srand(time(NULL));
 
-    printf("Informe a quantidade de Jogadores: ");
+    printf("Informe a quantidade de jogadores (2 a 5): ");
     scanf("%d", &qtdJogadores);
 
-    while (qtdJogadores <= 0){
-        printf("quantidade inválida, informe novamente!");
+    while (qtdJogadores < 2 || qtdJogadores > 5)
+    {
+        printf("\nNumero inválido, fora do intervalo (2-5)\n");
+        printf("Informe a quantidade de jogadores (2 a 5): ");
         scanf("%d", &qtdJogadores);
     }
 
-    jogador.cartela = geraCartela();
-    exibeCartela(jogador);
+    Jogador players[qtdJogadores];
     cadastraJogador(players, qtdJogadores);
 
     for (int z = 1; z <= 60; z++)
     {
         armazenaNumeroSorteado(numerosSorteados, &qtsNumerosSorteados);
-        printf("Numero sorteado: %d\n", numerosSorteados[z - 1]);
+
+        int numeroSorteado = numerosSorteados[z - 1];
+
+        printf("\nNumero sorteado: %d\n", numeroSorteado);
         printf("Na posicao: %d\n", z);
+
+        marcaNumero(players, qtdJogadores, numeroSorteado);
+
+        for (int i = 0; i < qtdJogadores; i++)
+        {
+            exibeCartela(players[i]);
+        }
     }
     return 0;
 }
