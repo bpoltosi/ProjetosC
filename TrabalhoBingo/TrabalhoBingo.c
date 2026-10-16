@@ -9,8 +9,8 @@ typedef struct
 
 typedef struct
 {
+    int id;
     char nome[50];
-    char codinome[50];
     Cartela cartela;
 } Jogador;
 
@@ -74,9 +74,21 @@ Cartela geraCartela(void)
     return cartela;
 }
 
-void exibeCartela(Jogador jogador) // funcao para exibir a cartela
+void cadastraJogador(Jogador players[], int qtdJogadores)
 {
-    printf("\nCartela de Bingo - %s\n", jogador.nome);
+    for (int i = 0; i < qtdJogadores; i++)
+    {
+        printf("Digite o nome do jogador: ");
+        scanf(" %49[^\n]", players[i].nome);
+
+        players[i].id = i + 1;
+        players[i].cartela = geraCartela();
+    }
+}
+
+void exibeCartela(Jogador jogador)
+{
+    printf("\nCartela de Bingo - %s (ID: %d)\n", jogador.nome, jogador.id);
 
     for (int i = 0; i < 15; i++)
     {
@@ -95,15 +107,25 @@ int main(void)
 {
     int qtsNumerosSorteados = 0;
     int numerosSorteados[60];
+    int qtdJogadores;
+
     Jogador jogador;
+    Jogador players[qtdJogadores];
+    jogador.id = 1;
 
     srand(time(NULL));
 
-    printf("Digite o nome do jogador: ");
-    scanf(" %49[^\n]", jogador.nome);
+    printf("Informe a quantidade de Jogadores: ");
+    scanf("%d", &qtdJogadores);
+
+    while (qtdJogadores <= 0){
+        printf("quantidade inválida, informe novamente!");
+        scanf("%d", &qtdJogadores);
+    }
 
     jogador.cartela = geraCartela();
     exibeCartela(jogador);
+    cadastraJogador(players, qtdJogadores);
 
     for (int z = 1; z <= 60; z++)
     {
