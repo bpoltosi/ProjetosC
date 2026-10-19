@@ -1,6 +1,6 @@
 # ProjetosC
 
-Repositório dedicado aos meus estudos e exercícios desenvolvidos em **linguagem C**.
+Repositório dedicado aos meus estudos e exercícios desenvolvidos em **linguagem C**!
 
 O objetivo é registrar a evolução prática em lógica de programação, vetores, matrizes, strings, ponteiros e outros fundamentos da linguagem.
 
