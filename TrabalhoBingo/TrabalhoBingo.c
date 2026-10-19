@@ -315,16 +315,16 @@ int processaProximaRodada(Jogador players[],int qtdJogadores,int numerosSorteado
 }
 
 /* Lista os vencedores ordenados pela rodada em que venceram */
-void exibeListaVencedores(Jogador players[],int qtdJogadores,int rodadaAtual,int jogadoresVencedores)
+void exibeListaVencedores(Jogador players[], int qtdJogadores, int rodadaAtual, int jogadoresVencedores)
 {
-    printf("\nJogadores que venceram: %d de %d\n",jogadoresVencedores, qtdJogadores);
-    printf("Vencedores (ordem de vitoria):\n");
-
+    /* Nao exibe a secao enquanto ainda nao houver vencedores. */
     if (jogadoresVencedores == 0)
     {
-        printf("Nenhum vencedor ainda.\n");
         return;
     }
+
+    printf("\nVencedores: %d de %d jogadores\n", jogadoresVencedores, qtdJogadores);
+    printf("Ordem de vitoria:\n");
 
     int posicao = 1;
 
@@ -335,7 +335,8 @@ void exibeListaVencedores(Jogador players[],int qtdJogadores,int rodadaAtual,int
             if (players[i].venceu == 1 &&
                 players[i].rodadaVitoria == rodada)
             {
-                printf("%d. %s - rodada %d\n",posicao, players[i].nome, players[i].rodadaVitoria);
+                printf("%d. %s - rodada %d\n",
+                       posicao, players[i].nome, players[i].rodadaVitoria);
                 posicao++;
             }
         }
@@ -343,22 +344,38 @@ void exibeListaVencedores(Jogador players[],int qtdJogadores,int rodadaAtual,int
 }
 
 /* Exibe o estado atual da partida (rodada, numero sorteado cartelas em jogo) - usa exibeCartela() exibeLitaVencedores() */
-void exibeEstadoPartida(Jogador players[],int qtdJogadores,int rodada,int numeroSorteado,int jogadoresVencedores)
+void exibeEstadoPartida(Jogador players[], int qtdJogadores, int rodada, int numeroSorteado, int jogadoresVencedores)
 {
     printf("========== BINGO ==========\n");
     printf("Rodada: %d/60\n", rodada);
     printf("Numero sorteado: %d\n", numeroSorteado);
-    printf("\nLegenda: * = numero sorteado\n");
-    printf("\n---- Cartelas em jogo ----\n");
 
+    /* Anuncia apenas quem venceu nesta rodada. */
     for (int i = 0; i < qtdJogadores; i++)
     {
-        if (players[i].venceu == 0)
+        if (players[i].venceu == 1 && players[i].rodadaVitoria == rodada)
         {
-            exibeCartela(players[i]);
+            printf("\n*** BINGO! %s venceu na rodada %d! ***\n",
+                   players[i].nome, rodada);
         }
     }
-    exibeListaVencedores(players,qtdJogadores,rodada,jogadoresVencedores);
+
+    /* Nao mostra a secao de cartelas quando todos ja venceram. */
+    if (jogadoresVencedores < qtdJogadores)
+    {
+        printf("\n---- Cartelas em jogo ----\n");
+
+        for (int i = 0; i < qtdJogadores; i++)
+        {
+            if (players[i].venceu == 0)
+            {
+                exibeCartela(players[i]);
+            }
+        }
+    }
+
+    /* A lista so aparece depois da primeira vitoria. */
+    exibeListaVencedores(players, qtdJogadores, rodada, jogadoresVencedores);
 }
 
 /* Avanca varias rodadas (sem mostrar) ate aparecer um novo vencedor - usa limparTela - exibeEstadoPartida() */
@@ -425,19 +442,22 @@ void exibeResultadoFinal(Jogador players[], int qtdJogadores, int jogadoresVence
         printf("Nem todos os jogadores completaram suas cartelas.\n");
     }
 
-    exibeListaVencedores(players,qtdJogadores,60,jogadoresVencedores);
+    /* Cada vencedor aparece uma unica vez, em ordem de vitoria. */
+    exibeListaVencedores(players, qtdJogadores, 60, jogadoresVencedores);
 
-    printf("\n--- Situacao final dos jogadores ---\n");
-
+    /* Evita repetir os vencedores: lista aqui somente quem nao venceu. */
+    int existemNaoVencedores = 0;
     for (int i = 0; i < qtdJogadores; i++)
     {
-        if (players[i].venceu == 1)
+        if (players[i].venceu == 0)
         {
-            printf("%s - venceu na rodada %d.\n",players[i].nome, players[i].rodadaVitoria);
-        }
-        else
-        {
-            printf("%s - nao completou a cartela.\n", players[i].nome);
+            if (!existemNaoVencedores)
+            {
+                printf("\n--- Jogadores que nao completaram a cartela ---\n");
+                existemNaoVencedores = 1;
+            }
+
+            printf("%s\n", players[i].nome);
         }
     }
 }
