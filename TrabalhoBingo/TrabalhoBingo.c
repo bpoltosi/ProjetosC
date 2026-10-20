@@ -264,11 +264,7 @@ static void pular_ate_proximo_ganhador(Jogador jogadores[], int quantidade,
         }
     }
 
-    limpar_tela();
-    exibir_estado(jogadores, quantidade, *rodada, numero, *total_vencedores);
-    if (*total_vencedores == vencedores_antes && *rodada >= MAX_NUMERO) {
-        puts("\nNao ha mais numeros disponiveis para sorteio.");
-    }
+
 }
 
 static void exibir_resultado_final(const Jogador jogadores[], int quantidade,
@@ -322,6 +318,9 @@ static void executar_partida(Jogador jogadores[], int quantidade)
 
         if (estado_ja_processado) {
             estado_ja_processado = 0;
+            if (total_sorteados > 0) {
+                numero = sorteados[total_sorteados - 1];
+            }
         } else {
             numero = processar_rodada(jogadores, quantidade, sorteados,
                                       &total_sorteados, &rodada, &total_vencedores);
