@@ -199,6 +199,13 @@ void marcaNumero(Jogador players[], int qtdJogadores, int numeroSorteado)
     }
 }
 
+void exibeResumoRodada(int rodada, int numeroSorteado)
+{
+    printf("\n========== BINGO ==========\n");
+    printf("Rodada: %d/60\n", rodada);
+    printf("Numero sorteado: %d\n", numeroSorteado);
+}
+
 int verificaVitoria(Jogador *jogador, int rodada) // usa ponteiro para refenciar diretamente ao jogador
 {
     for (int i = 0; i < 15; i++)
@@ -214,6 +221,43 @@ int verificaVitoria(Jogador *jogador, int rodada) // usa ponteiro para refenciar
         jogador->rodadaVitoria = rodada;
     }
     return 1;
+}
+
+void exibeResultadoFinal(Jogador players[], int qtdJogadores, int jogadoresVencedores)
+{
+
+    printf("\n========== RESULTADO FINAL ==========\n");
+    printf("Jogadores que venceram: %d de %d\n", jogadoresVencedores, qtdJogadores);
+
+    printf("\n--- Vencedores ---\n");
+
+    for (int rodada = 1; rodada <= 60; rodada++)
+    {
+        for (int i = 0; i < qtdJogadores; i++)
+        {
+            if (players[i].venceu && players[i].rodadaVitoria == rodada)
+            {
+                printf("Rodada %i - %s (ID: %i)\n", players[i].rodadaVitoria, players[i].nome, players[i].id);
+            }
+        }
+    }
+
+    printf("\n--- Jogadores que nao venceram ---\n");
+
+    int buscaNaoVencedor = 0;
+
+    for (int i = 0; i < qtdJogadores; i++)
+    {
+        if (players[i].venceu == 0)
+        {
+            printf("- %s (ID: %d)\n", players[i].nome, players[i].id);
+            buscaNaoVencedor = 1;
+        }
+    }
+    if (buscaNaoVencedor == 0)
+    {
+        printf("Todos os jogadores venceram!\n");
+    }
 }
 
 int main(void)
@@ -236,13 +280,11 @@ int main(void)
         marcaNumero(players, qtdJogadores, numeroSorteado);
         limparTela(); // limpa tela para iniciar a proxima rodada
 
-        printf("========== BINGO ==========\n");
-        printf("Rodada: %d/60\n", z);
-        printf("Numero sorteado: %d\n", numeroSorteado);
+        exibeResumoRodada(z, numeroSorteado);
 
         for (int i = 0; i < qtdJogadores; i++) // verifica se algum jogador ganhou na rodada atual
         {
-            if (players[i].venceu == 0 && verificaVitoria(&players[i], qtsNumerosSorteados))
+            if (players[i].venceu == 0 && verificaVitoria(&players[i], z))
             {
                 jogadoresVencedores++;
 
