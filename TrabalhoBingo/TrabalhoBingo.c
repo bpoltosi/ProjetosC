@@ -315,14 +315,19 @@ static void executar_partida(Jogador jogadores[], int quantidade)
     int total_vencedores = 0;
     int rodada = 0;
     int numero = 0;
+    int estado_ja_processado = 0;
 
     while (rodada < MAX_NUMERO && total_vencedores < quantidade) {
         char linha[64];
 
-        numero = processar_rodada(jogadores, quantidade, sorteados,
-                                  &total_sorteados, &rodada, &total_vencedores);
-        if (numero == 0) {
-            break;
+        if (estado_ja_processado) {
+            estado_ja_processado = 0;
+        } else {
+            numero = processar_rodada(jogadores, quantidade, sorteados,
+                                      &total_sorteados, &rodada, &total_vencedores);
+            if (numero == 0) {
+                break;
+            }
         }
 
         limpar_tela();
@@ -362,6 +367,7 @@ static void executar_partida(Jogador jogadores[], int quantidade)
                 pular_ate_proximo_ganhador(jogadores, quantidade, sorteados,
                                             &total_sorteados, &rodada,
                                             &total_vencedores);
+                estado_ja_processado = 1;
             }
         }
     }
