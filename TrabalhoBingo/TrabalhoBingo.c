@@ -14,6 +14,7 @@ typedef struct
     char nome[50];
     Cartela cartela;
     int venceu; // 0 se ainda esta jogando, 1 se ja "ganhou"
+    int rodadaVitoria;
 } Jogador;
 
 void descartarRestanteLinha(void)
@@ -44,6 +45,25 @@ void limparTela()
 #else
     system("clear"); // Executa no Linux e macOS
 #endif
+}
+
+int recebeNumeroJogadores()
+{
+    int qtdJogadores;
+
+    printf("Informe a quantidade de jogadores (2 a 5): "); // recebe a quantidade de jogadores
+    scanf("%d", &qtdJogadores);
+    descartarRestanteLinha();
+
+    while (qtdJogadores < 2 || qtdJogadores > 5) // valida quantidade de jogadores
+    {
+        printf("\nNumero inválido, fora do intervalo (2-5)\n");
+        printf("Informe a quantidade de jogadores (2 a 5): ");
+        scanf("%d", &qtdJogadores);
+        descartarRestanteLinha();
+    }
+
+    return qtdJogadores;
 }
 
 int sortearNumero(int numerosSorteados[], int qtsNumerosSorteados)
@@ -132,6 +152,7 @@ void cadastraJogador(Jogador players[], int qtdJogadores)
         players[i].id = i + 1;              // da IDs sequenciais para os players
         players[i].cartela = geraCartela(); // gera cartela para o player
         players[i].venceu = 0;              // inicializa como "não ganhadores"
+        players[i].rodadaVitoria = 0;       // inicializa rodada da vitorio = 0
     }
 }
 
@@ -165,7 +186,7 @@ void marcaNumero(Jogador players[], int qtdJogadores, int numeroSorteado)
     {
         if (players[i].venceu == 1) // skipa os players que ja venceram
         {
-            continue;   // comando para "pular" (!= do break, que para)
+            continue; // comando para "pular" (!= do break, que para)
         }
 
         for (int j = 0; j < 15; j++)
@@ -178,16 +199,20 @@ void marcaNumero(Jogador players[], int qtdJogadores, int numeroSorteado)
     }
 }
 
-int verificaVitoria(Jogador jogador)
+int verificaVitoria(Jogador *jogador, int rodada) // usa ponteiro para refenciar diretamente ao jogador
 {
     for (int i = 0; i < 15; i++)
     {
-        if (jogador.cartela.marcado[i] == 0)
+        if (jogador->cartela.marcado[i] == 0) // usa '->' para acessar o ponteiro referente
         {
             return 0;
         }
     }
-
+    if (jogador->venceu == 0)
+    { // se ele nao venceu ainda
+        jogador->venceu = 1;
+        jogador->rodadaVitoria = rodada;
+    }
     return 1;
 }
 
@@ -195,29 +220,17 @@ int main(void)
 {
     int qtsNumerosSorteados = 0;
     int numerosSorteados[60];
-    int qtdJogadores;
     int jogadoresVencedores = 0;
+    int qtdJogadores = recebeNumeroJogadores();
 
     srand(time(NULL));
-
-    printf("Informe a quantidade de jogadores (2 a 5): "); // recebe a quantidade de jogadores
-    scanf("%d", &qtdJogadores);
-    descartarRestanteLinha();
-
-    while (qtdJogadores < 2 || qtdJogadores > 5) // valida quantidade de jogadores
-    {
-        printf("\nNumero inválido, fora do intervalo (2-5)\n");
-        printf("Informe a quantidade de jogadores (2 a 5): ");
-        scanf("%d", &qtdJogadores);
-        descartarRestanteLinha();
-    }
 
     Jogador players[qtdJogadores];
     cadastraJogador(players, qtdJogadores);
 
     for (int z = 1; z <= 60 && jogadoresVencedores < qtdJogadores; z++) // FOR pra se nao ocorreram as 60 rodadas e nem todos jogadores "venceram"
     {
-        armazenaNumeroSorteado(numerosSorteados, &qtsNumerosSorteados); 
+        armazenaNumeroSorteado(numerosSorteados, &qtsNumerosSorteados);
         int numeroSorteado = numerosSorteados[z - 1];
 
         marcaNumero(players, qtdJogadores, numeroSorteado);
@@ -229,28 +242,28 @@ int main(void)
 
         for (int i = 0; i < qtdJogadores; i++) // verifica se algum jogador ganhou na rodada atual
         {
-            if (players[i].venceu == 0 && verificaVitoria(players[i]))
+            if (players[i].venceu == 0 && verificaVitoria(&players[i], qtsNumerosSorteados))
             {
-                players[i].venceu = 1;
                 jogadoresVencedores++;
 
-                printf("\n*** BINGO! %s venceu! ***\n",
-                       players[i].nome);
+                printf("\nBINGO! %s venceu, na rodada %i!\n", players[i].nome, players[i].rodadaVitoria);
             }
         }
 
-        // EXibe as cartelas de quem ainda esta em jogo
-        printf("\n--- Cartelas em jogo ---\n");
-
-        for (int i = 0; i < qtdJogadores; i++)
+        if (jogadoresVencedores < qtdJogadores) // se ainda houver jogo, exibe as cartelas de quem ainda esta jogando
         {
-            if (players[i].venceu == 0) // condicao de apenas os "nao ganhadores"
+            printf("\n--- Cartelas em jogo ---\n");
+
+            for (int i = 0; i < qtdJogadores; i++)
             {
-                exibeCartela(players[i]);
+                if (players[i].venceu == 0) // condicao de apenas os "nao ganhadores"
+                {
+                    exibeCartela(players[i]);
+                }
             }
         }
 
-        printf("\nJogadores que venceram: %d de %d\n", jogadoresVencedores, qtdJogadores); // print dos jogadores que ja venceram (nao sei se deveria aparecer em toda rodada)
+        printf("\nJogadores que ja venceram: %d de %d\n", jogadoresVencedores, qtdJogadores); // print dos jogadores que ja venceram (nao sei se deveria aparecer em toda rodada)
 
         if (jogadoresVencedores < qtdJogadores && z < 60) // validacao de espera para a proxima rodada
         {
