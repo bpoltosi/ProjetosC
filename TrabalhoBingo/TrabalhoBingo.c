@@ -29,7 +29,6 @@ typedef struct {
 
 static void descartar_linha(void);
 static int ler_inteiro_intervalo(const char *mensagem, int minimo, int maximo);
-static void aguardar_continuacao(void);
 static void limpar_tela(void);
 static Cartela gerar_cartela(void);
 static void cadastrar_jogadores(Jogador jogadores[], int quantidade);
@@ -38,9 +37,6 @@ static int sortear_numero(int sorteados[], int quantidade);
 static void marcar_numero(Jogador jogadores[], int quantidade, int numero);
 static int cartela_completa(const Cartela *cartela);
 static int registrar_vitorias(Jogador jogadores[], int quantidade, int rodada);
-static void exibir_estado(const Jogador jogadores[], int quantidade,
-                          int rodada, int numero, int total_vencedores);
-static void exibir_vencedores(const Jogador jogadores[], int quantidade);
 static void exibir_resultado_final(const Jogador jogadores[], int quantidade,
                                    int total_vencedores);
 static int processar_rodada(Jogador jogadores[], int quantidade,
@@ -80,26 +76,6 @@ static int ler_inteiro_intervalo(const char *mensagem, int minimo, int maximo)
             return (int)valor;
         }
         printf("Digite um numero entre %d e %d.\n", minimo, maximo);
-    }
-}
-
-static void aguardar_continuacao(void)
-{
-    char linha[64];
-
-    for (;;) {
-        printf("\n[Enter] proxima rodada | [p + Enter] proximo vencedor: ");
-        if (fgets(linha, sizeof linha, stdin) == NULL) {
-            return;
-        }
-        if (linha[0] == '\n' || linha[0] == '\r') {
-            return;
-        }
-        if (tolower((unsigned char)linha[0]) == 'p') {
-            /* O retorno e comunicado pelo buffer de entrada sem variaveis globais. */
-            return;
-        }
-        puts("Opcao invalida. Pressione Enter ou digite p.");
     }
 }
 
@@ -249,63 +225,6 @@ static int registrar_vitorias(Jogador jogadores[], int quantidade, int rodada)
         }
     }
     return novas_vitorias;
-}
-
-static void exibir_vencedores(const Jogador jogadores[], int quantidade)
-{
-    int i, total = 0;
-
-    for (i = 0; i < quantidade; i++) {
-        if (jogadores[i].venceu) {
-            total++;
-        }
-    }
-    if (total == 0) {
-        return;
-    }
-
-    printf("\n--- Jogadores que venceram: %d de %d ---\n", total, quantidade);
-    /* A ordem do vetor corresponde a ordem em que as vitorias foram registradas
-       apenas quando nao ha empates; para empates, a rodada identifica a ordem. */
-    for (i = 0; i < quantidade; i++) {
-        int j;
-        for (j = 0; j < quantidade; j++) {
-            if (jogadores[j].venceu && jogadores[j].rodada_vitoria == i + 1) {
-                printf("%d. %s — rodada %d\n", ++total /* corrigido abaixo */, 
-                       jogadores[j].nome, jogadores[j].rodada_vitoria);
-            }
-        }
-    }
-}
-
-static void exibir_estado(const Jogador jogadores[], int quantidade,
-                          int rodada, int numero, int total_vencedores)
-{
-    int i, j;
-
-    printf("========== BINGO LDP ==========\n");
-    if (rodada > 0) {
-        printf("Rodada: %d/%d | Numero sorteado: %d\n", rodada, MAX_NUMERO, numero);
-    } else {
-        puts("A partida ainda nao comecou.");
-    }
-    printf("Vencedores: %d/%d\n", total_vencedores, quantidade);
-
-    printf("\nNumeros sorteados (%d): ", rodada);
-    for (i = 0; i < rodada; i++) {
-        /* A lista de sorteados e exibida pelo chamador no estado atual abaixo. */
-        (void)j;
-    }
-    puts("(consulte o historico exibido durante a partida)");
-
-    for (i = 0; i < quantidade; i++) {
-        printf("\n%s%s\n", jogadores[i].nome,
-               jogadores[i].venceu ? " - VENCEDOR" : "");
-        exibir_cartela(&jogadores[i].cartela);
-    }
-    if (total_vencedores > 0) {
-        exibir_vencedores(jogadores, quantidade);
-    }
 }
 
 static int processar_rodada(Jogador jogadores[], int quantidade,
