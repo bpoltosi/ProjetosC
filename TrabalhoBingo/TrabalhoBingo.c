@@ -27,14 +27,34 @@ void descartarRestanteLinha(void)
     }
 }
 
-void aguardaEnter(void)
+int aguardaEnter(int *modoPular)
 {
-    printf("\nPressione ENTER para a proxima rodada...");
-
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF)
+    // se verdadeiro - esta no loop, nao pede input
+    if (*modoPular)
     {
-        // Descarta caracteres restantes da entrada
+        return 1;
+    }
+
+    printf("\nPressione ENTER para a proxima rodada");
+    printf("\nPressione P para pular ate algum jogador ganhar\n");
+
+    char c = getchar();
+    if (c == '\n')
+    {
+        return 1; // continua, rodada a rodada
+    }
+    else if (c == 'P' || c == 'p')
+    {
+        *modoPular = 1; //ativa o modo salto automatico
+        descartarRestanteLinha();
+        return 1;
+    }
+    else
+    {
+        // valida os erros na entrada, descartando a linha, avisando o usuario e pedindo um novo input
+        descartarRestanteLinha();
+        printf("Entrada invalida, tente novamente!\n");
+        return aguardaEnter(modoPular); // tenta de novo recursivamente
     }
 }
 
@@ -285,6 +305,7 @@ int main(void)
     int numerosSorteados[60];
     int jogadoresVencedores = 0;
     int qtdJogadores = recebeNumeroJogadores();
+    int modoPular = 0; // variavel de controle para a opcao p
 
     srand(time(NULL));
 
@@ -301,16 +322,24 @@ int main(void)
 
         exibeResumoRodada(z, numeroSorteado);
 
-        for (int i = 0; i < qtdJogadores; i++) // verifica se alguém ganhou nesta rodada
+        int novoVencedor = 0; // variavel de controle para se alguem venceu agora
+
+        for (int i = 0; i < qtdJogadores; i++) // verifica se alguem ganhou nesta rodada
         {
             if (players[i].venceu == 0 && verificaVitoria(&players[i], z))
             {
-                jogadoresVencedores++;
                 printf("\nBINGO! %s venceu!!!\n", players[i].nome);
+                jogadoresVencedores++;
+                novoVencedor = 1;    // indica que alguem ganhou
             }
         }
+        // se alguem venceu nesta rodada, desativa o modo pular para pausar o jogo
+        if (novoVencedor)
+        {
+            modoPular = 0;
+        }
 
-        if (jogadoresVencedores < qtdJogadores) // se o jogo ainda não acabou para todos
+        if (jogadoresVencedores < qtdJogadores) // se o jogo ainda nao acabou para todos
         {
             printf("\n--- Cartelas em jogo ---\n");
 
@@ -322,17 +351,16 @@ int main(void)
                 }
             }
 
-            // exibe o status parcial (jogoEncerrado = 0) passando a rodada atual (z)
             exibeResultado(players, qtdJogadores, jogadoresVencedores, 0, z);
 
             if (z < 60)
             {
-                aguardaEnter();
+                aguardaEnter(&modoPular);   // passa o endereco do valor original
             }
         }
     }
 
-    // exibe o ranking final definitivo ao término do jogo (jogoEncerrado = 1)
+    // exibe o ranking final definitivo ao termino do jogo
     exibeResultado(players, qtdJogadores, jogadoresVencedores, 1, 60);
 
     return 0;
