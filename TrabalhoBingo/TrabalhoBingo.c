@@ -230,69 +230,49 @@ int verificaVitoria(Jogador *jogador, int rodada) // usa ponteiro para refenciar
 
 void exibeResultado(Jogador players[], int qtdJogadores, int jogadoresVencedores, int jogoEncerrado, int rodadaAtual)
 {
-
-    // print do resultado final
-    if (jogoEncerrado && jogadoresVencedores == qtdJogadores)
+    // se o jogo ja tiver acabado
+    if (jogoEncerrado)
     {
-        printf("\n========== RESULTADO FINAL ==========\n");
-        printf("Todos os jogadores venceram!\n");
-
+        // exibe o ranking ordenado do primeiro ao último (varrendo as rodadas de 1 a 60)
+        printf("\n========== RESULTADO FINAL - RANKING ==========\n");
+        int posicao = 1;
         for (int rodada = 1; rodada <= 60; rodada++)
         {
             for (int i = 0; i < qtdJogadores; i++)
             {
                 if (players[i].venceu && players[i].rodadaVitoria == rodada)
                 {
-                    printf("Rodada %i - %s (ID: %i)\n", players[i].rodadaVitoria, players[i].nome, players[i].id);
+                    printf("%d Lugar: %s (ID: %i) - vencendo na rodada %d\n", posicao, players[i].nome, players[i].id, players[i].rodadaVitoria);
+                    posicao++;
                 }
             }
         }
     }
+    // se ainda tiver jogo
     else
     {
-        if (jogoEncerrado)
-        {
-            printf("\n========== RESULTADO FINAL ==========\n");
-        }
-        else
-        {
-            printf("\n========== STATUS PARCIAL DO JOGO ==========\n");
-        }
-        printf("Jogadores que ja venceram: %d de %d\n", jogadoresVencedores, qtdJogadores);
+        printf("\n========== STATUS PARCIAL DO JOGO ==========\n");
+        printf("Quantos jogadores ja venceram: %d de %d\n", jogadoresVencedores, qtdJogadores);
 
-        printf("\nJa venceram:\n");
+        // verifica e exibe quem venceu em rodadas anteriores
+        int venceramAnteriores = 0;
         for (int i = 0; i < qtdJogadores; i++)
         {
-            if (players[i].venceu == 1)
+            if (players[i].venceu && players[i].rodadaVitoria < rodadaAtual)
             {
-                printf("- %s (ID: %i) - Venceu na rodada %d\n", players[i].nome, players[i].id, players[i].rodadaVitoria);
+                venceramAnteriores = 1;      // atribui como 'V'
+                break;
             }
         }
-        // Exibe quem ja venceu em rodadas ANTERIORES (ocultando quem venceu na rodada atual)
-        if (jogadoresVencedores > 0)
+        // se condicao verdadeira
+        if (venceramAnteriores)
         {
-            int temAnteriores = 0;
+            printf("\nJa venceram em rodadas anteriores:\n");
             for (int i = 0; i < qtdJogadores; i++)
             {
-                if (players[i].venceu == 1 && jogoEncerrado || players[i].rodadaVitoria < rodadaAtual)
+                if (players[i].venceu && players[i].rodadaVitoria < rodadaAtual)
                 {
-                    temAnteriores = 1;
-                    break;
-                }
-            }
-            if (temAnteriores)
-            {
-                printf("\nJa venceram:\n");
-                for (int i = 0; i < qtdJogadores; i++)
-                {
-                    if (players[i].venceu == 1)
-                    {
-                        if (!jogoEncerrado && players[i].rodadaVitoria == rodadaAtual)
-                        {
-                            continue; // Pula quem acabou de vencer nesta rodada
-                        }
-                        printf("- %s (ID: %i) - Venceu na rodada %d\n", players[i].nome, players[i].id, players[i].rodadaVitoria);
-                    }
+                    printf("   - %s (ID: %i) - Venceu na rodada %d\n", players[i].nome, players[i].id, players[i].rodadaVitoria);
                 }
             }
         }
@@ -311,27 +291,26 @@ int main(void)
     Jogador players[qtdJogadores];
     cadastraJogador(players, qtdJogadores);
 
-    for (int z = 1; z <= 60 && jogadoresVencedores < qtdJogadores; z++) // FOR pra se nao ocorreram as 60 rodadas e nem todos jogadores "venceram"
+    for (int z = 1; z <= 60 && jogadoresVencedores < qtdJogadores; z++)
     {
         armazenaNumeroSorteado(numerosSorteados, &qtsNumerosSorteados);
         int numeroSorteado = numerosSorteados[z - 1];
 
         marcaNumero(players, qtdJogadores, numeroSorteado);
-        limparTela(); // limpa tela para iniciar a proxima rodada
+        limparTela(); // limpa a tela para a nova rodada
 
         exibeResumoRodada(z, numeroSorteado);
 
-        for (int i = 0; i < qtdJogadores; i++) // verifica se algum jogador ganhou na rodada atual
+        for (int i = 0; i < qtdJogadores; i++) // verifica se alguém ganhou nesta rodada
         {
             if (players[i].venceu == 0 && verificaVitoria(&players[i], z))
             {
                 jogadoresVencedores++;
-
                 printf("\nBINGO! %s venceu!!!\n", players[i].nome);
             }
         }
 
-        if (jogadoresVencedores < qtdJogadores) // se ainda houver jogo, exibe as cartelas de quem ainda esta jogando
+        if (jogadoresVencedores < qtdJogadores) // se o jogo ainda não acabou para todos
         {
             printf("\n--- Cartelas em jogo ---\n");
 
@@ -343,19 +322,18 @@ int main(void)
                 }
             }
 
-            // chamada da funcao durante a partida, passando 0 para 'jogoEncerrado' e z como 'rodada atual'
-            exibeResultado(players, qtdJogadores, jogadoresVencedores, 0,z);
-            // se o jogo nao tiver acabado, aguarda o enter para prosseguir
+            // exibe o status parcial (jogoEncerrado = 0) passando a rodada atual (z)
+            exibeResultado(players, qtdJogadores, jogadoresVencedores, 0, z);
+
             if (z < 60)
             {
                 aguardaEnter();
             }
         }
-
     }
 
-    // Exibe o resultado definitivo ao término do jogo
-    exibeResultado(players, qtdJogadores, jogadoresVencedores,1,60);
+    // exibe o ranking final definitivo ao término do jogo (jogoEncerrado = 1)
+    exibeResultado(players, qtdJogadores, jogadoresVencedores, 1, 60);
 
     return 0;
 }
