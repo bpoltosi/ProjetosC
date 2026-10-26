@@ -175,19 +175,69 @@ Cartela geraCartela(void)
     return cartela;
 }
 
-void cadastraJogador(Jogador players[], int qtdJogadores)
+int leNome(char nome[], int tamanho)
+{
+    while (1){
+
+    printf("Digite o nome do jogador: ");
+
+    if (fgets(nome, tamanho, stdin) == NULL)    // se nao conseguiu ler
+    {
+        printf("\nErro ao ler o nome.\n");
+        exit(1);   // indica falha e exita do codigo
+    }
+
+    int tamanhoNome = strlen(nome);
+
+    if (tamanhoNome > 0 && nome[tamanhoNome - 1] == '\n') // se tiver nome, e ele estiver com o '\n'
+    {
+        nome[tamanhoNome - 1] = '\0'; // coloca "final" na string nome, com o '\0' no lugar do '\n'
+    }
+    else
+    {
+        int c = getchar();
+
+        if (c != '\n' && c != EOF) // verifica se o nome passou do limite das 49 caracteres
+        {
+            descartarRestanteLinha();
+            printf("Nome muito longo. Tente novamente.\n");
+
+            continue;   // volta para o inicio do laço, para pedir outro nome
+        }
+
+        if (c == EOF && ferror(stdin))  // verifica se ocorreu um erro na leitura ou encontrou o fim da entrada
+        {
+            exit(1);   // indica falha e exita do codigo
+        }
+    }
+
+    if (nome[0] == '\0')    // verficia se a primeira letra do nome esta vazia (indicativo de que o nome nao foi preenchido)
+    {
+        printf("O nome nao pode ficar vazio.\n");
+
+        continue;   // volta para o inicio do laço, para pedir outro nome
+    }
+
+    return 1;
+    }
+}
+
+int cadastraJogador(Jogador players[], int qtdJogadores)
 {
     for (int i = 0; i < qtdJogadores; i++)
     {
-        printf("Digite o nome do jogador: ");
-        scanf(" %49[^\n]", players[i].nome);
-        descartarRestanteLinha();
+        if (!leNome(players[i].nome, sizeof(players[i].nome)))
+        {
+            return 0;
+        }
 
-        players[i].id = i + 1;              // da IDs sequenciais para os players
-        players[i].cartela = geraCartela(); // gera cartela para o player
-        players[i].venceu = 0;              // inicializa como "não ganhadores"
-        players[i].rodadaVitoria = 0;       // inicializa rodada da vitorio = 0
+        players[i].id = i + 1;
+        players[i].cartela = geraCartela();
+        players[i].venceu = 0;
+        players[i].rodadaVitoria = 0;
     }
+
+    return 1;
 }
 
 void exibeCartela(Jogador jogador)
