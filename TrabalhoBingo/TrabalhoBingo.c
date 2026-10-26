@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <errno.h>
+#include <limits.h>
+#include <string.h>
 
 typedef struct
 {
@@ -45,7 +48,7 @@ int aguardaEnter(int *modoPular)
     }
     else if (c == 'P' || c == 'p')
     {
-        *modoPular = 1; //ativa o modo salto automatico
+        *modoPular = 1; // ativa o modo salto automatico
         descartarRestanteLinha();
         return 1;
     }
@@ -72,25 +75,35 @@ int recebeNumeroJogadores()
     int qtdJogadores;
 
     printf("Informe a quantidade de jogadores (2 a 5): "); // recebe a quantidade de jogadores
-    scanf("%d", &qtdJogadores);
-    descartarRestanteLinha();
 
-    while (qtdJogadores < 2 || qtdJogadores > 5) // valida quantidade de jogadores
+    if (scanf("%d", &qtdJogadores) != 1) // se o scanf leu algo diferente de "1 inteiro"
     {
-        printf("\nNumero inválido, fora do intervalo (2-5)\n");
-        printf("Informe a quantidade de jogadores (2 a 5): ");
-        scanf("%d", &qtdJogadores);
         descartarRestanteLinha();
+        printf("Entrada invalida! Digite um numero inteiro.\n");
+        return recebeNumeroJogadores();
     }
 
+    int c = getchar(); // variavel de auxilio para controle da validacao de entrada de caracteres
+
+    if (c != '\n' && c != EOF) // valida se é um caracter aceito (numero inteiro)
+    {
+        descartarRestanteLinha(); // limpa buffer
+        printf("Digite apenas um numero, sem letras.\n");
+        return recebeNumeroJogadores(); // recursao
+    }
+
+    if (qtdJogadores < 2 || qtdJogadores > 5) // valida se esta no intervalo correto
+    {
+        printf("Digite um numero inteiro entre 2 e 5\n");
+        return recebeNumeroJogadores(); // recursao
+    }
     return qtdJogadores;
 }
 
 int sortearNumero(int numerosSorteados[], int qtsNumerosSorteados)
 {
-    if (qtsNumerosSorteados >= 60)
+    if (qtsNumerosSorteados >= 60) // verifica se ja nao foram sorteados os 60 numeros
     {
-        // verifica se ja nao foram sorteados os 60 numeros
         return 0;
     }
 
@@ -103,12 +116,11 @@ int sortearNumero(int numerosSorteados[], int qtsNumerosSorteados)
 
         for (int i = 0; i < qtsNumerosSorteados; i++)
         {
-            if (n == numerosSorteados[i])
+            if (n == numerosSorteados[i]) // valida o numero
             {
-                // valida o numero
                 repetido = 1;        // se for repetido, volta novamente a dar a TAG
                 n = rand() % 60 + 1; // gera um novo numero
-                break;               // interrompe o for completo, reiniciando a validacao
+                break;               // interrompe o FOR completo, reiniciando a validacao
             }
         }
     }
@@ -117,17 +129,15 @@ int sortearNumero(int numerosSorteados[], int qtsNumerosSorteados)
 
 void armazenaNumeroSorteado(int numerosSorteados[], int *qtsNumerosSorteados)
 {
-    if (*qtsNumerosSorteados >= 60)
+    if (*qtsNumerosSorteados >= 60) // valida se ja nao foram sorteados os 60 numeros (60 sorteios)
     {
-        // valida se ja nao foram sorteados os 60 numeros (60 sorteios)
         return;
     }
 
     int n = sortearNumero(numerosSorteados, *qtsNumerosSorteados);
 
-    if (n == 0)
+    if (n == 0) // valida se a funcao nao returnou zero, caso de validacao da funcao para quando nao ha mais numeros disponiveis para sorteio
     {
-        // valida se a funcao nao returnou zero, do caso de validacao da funcao para quando nao ha mais numeros disponiveis para sortear
         return;
     }
 
@@ -151,7 +161,7 @@ Cartela geraCartela(void)
             for (int i = 0; i < z; i++) // 'z' seria == qtsNumerosGerados
             {
                 if (n == cartela.numero[i]                                           // valida repeticao exata
-                        || n == (cartela.numero[i] - 1) || n == (cartela.numero[i] + 1)) // valida repeticao consecutiva
+                    || n == (cartela.numero[i] - 1) || n == (cartela.numero[i] + 1)) // valida repeticao consecutiva
                 {
                     repetido = 1;        // se for repetido, volta novamente a ter a TAG, para reiniciar a validacao
                     n = rand() % 60 + 1; // gera um novo numero (ainda nao validado)
@@ -280,7 +290,7 @@ void exibeResultado(Jogador players[], int qtdJogadores, int jogadoresVencedores
         {
             if (players[i].venceu && players[i].rodadaVitoria < rodadaAtual)
             {
-                venceramAnteriores = 1;      // atribui como 'V'
+                venceramAnteriores = 1; // atribui como 'V'
                 break;
             }
         }
@@ -330,7 +340,7 @@ int main(void)
             {
                 printf("\nBINGO! %s venceu!!!\n", players[i].nome);
                 jogadoresVencedores++;
-                novoVencedor = 1;    // indica que alguem ganhou
+                novoVencedor = 1; // indica que alguem ganhou
             }
         }
         // se alguem venceu nesta rodada, desativa o modo pular para pausar o jogo
@@ -355,7 +365,7 @@ int main(void)
 
             if (z < 60)
             {
-                aguardaEnter(&modoPular);   // passa o endereco do valor original
+                aguardaEnter(&modoPular); // passa o endereco do valor original
             }
         }
     }
