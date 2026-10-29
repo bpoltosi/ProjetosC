@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <errno.h>
-#include <limits.h>
-#include <string.h>
+#include <stdio.h>    //  uso de: printf, scanf, getchar, fgets, stdin e ferror
+#include <stdlib.h>    // uso de: rand, srand, system e exit.
+#include <time.h>    // inicializar o sorteio aleatório.
+#include <string.h>    // para verificar e tratar o nome digitado.
 
 typedef struct
 {
