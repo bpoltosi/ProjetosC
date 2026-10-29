@@ -1,5 +1,5 @@
-#include <stdio.h>    //  uso de: printf, scanf, getchar, fgets, stdin e ferror
-#include <stdlib.h>    // uso de: rand, srand, system e exit.
+#include <stdio.h>    //  uso do printf, scanf, getchar, fgets, stdin e ferror
+#include <stdlib.h>    // uso do rand, srand, system e exit.
 #include <time.h>    // inicializar o sorteio aleatório.
 #include <string.h>    // para verificar e tratar o nome digitado.
 
