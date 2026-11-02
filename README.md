@@ -1,79 +1,51 @@
 # Projetos em C
 
-Repositório dedicado aos meus estudos, exercícios e projetos desenvolvidos em **linguagem C**. O objetivo é registrar minha evolução prática em lógica de programação, algoritmos, estruturas de dados, manipulação de dados e organização de código.
+Repositório de exercícios acadêmicos e projetos práticos em **C**, cobrindo lógica de programação, algoritmos, estruturas de dados básicas, manipulação de arquivos e organização de código.
 
-## 📚 Conteúdos praticados
+## Conteúdos
 
-- Lógica de programação e algoritmos.
-- Estruturas condicionais e laços de repetição.
-- Funções, modularização e recursividade.
-- Vetores e matrizes.
-- Strings e manipulação de caracteres.
-- Ponteiros e estruturas (`struct`).
-- Entrada, validação e tratamento de dados.
+- Condicionais, laços, funções e recursividade.
+- Vetores, matrizes e strings.
+- Ponteiros e alocação/uso de memória.
+- Estruturas (`struct`) e organização de registros.
+- Arquivos, leitura e escrita.
+- Validação de entrada e tratamento de casos-limite.
 - Geração de números aleatórios.
-- Organização e reutilização de funções.
 
-## 📁 Organização do repositório
+## Organização
 
-| Diretório/arquivo | Descrição |
-| --- | --- |
-| `ListaMatrizes1/` | Exercícios de lógica e manipulação de matrizes. |
-| `ListaMatrizes2/` | Exercícios complementares envolvendo matrizes. |
-| `ListaStrings/` | Exercícios de manipulação e processamento de strings. |
-| `TrabalhoBingo/` | Projeto de bingo executado no terminal, com cadastro de jogadores, geração de cartelas, sorteio e acompanhamento das partidas. |
-| `utils.c` | Implementações de funções utilitárias para manipulação e validação de strings, entre outros exercícios com caracteres. |
+| Diretório | Conteúdo |
+|---|---|
+| `ExercicioArquivos/` | Exercícios de arquivos e dados auxiliares |
+| `ExercicioFuncoes/` | Exercícios de modularização e funções |
+| `ExercicioPonteiros/`, `ListaPonteiros/` | Estudos de ponteiros |
+| `ExerciciosStrings/`, `ListaStrings/` | Manipulação de strings |
+| `ExerciciosStruct/`, `ListaStruct/` | Estruturas e registros |
+| `ListaMatrizes1/`, `ListaMatrizes2/` | Exercícios com matrizes |
+| `ListaPreparatoriaProva/`, `Prova/` | Atividades avaliativas e preparação |
+| `TrabalhoBingo/` | Projeto de bingo em terminal |
+| `utils.c` | Funções utilitárias compartilhadas |
 
-## 🎲 Projeto em destaque: Bingo
+## Projeto em destaque: TrabalhoBingo
 
-O projeto em `TrabalhoBingo/` simula uma partida de bingo no terminal. Entre os recursos implementados estão:
+Simulador de bingo em terminal com cadastro de jogadores, cartelas, sorteio e acompanhamento da partida. A documentação específica, os requisitos e as instruções de compilação estão em [TrabalhoBingo/README.md](TrabalhoBingo/README.md).
 
-- Cadastro de **2 a 5 jogadores**, com validação das entradas.
-- Geração de cartelas com 15 números distintos entre 1 e 60.
-- Sorteio de números sem repetição.
-- Marcação automática dos números sorteados nas cartelas.
-- Identificação dos vencedores e registro da rodada em que cada um completou a cartela.
-- Exibição do andamento da partida e ranking final.
-- Avanço rodada a rodada ou modo de avanço automático até surgir um novo vencedor.
+## Compilação de exercícios
 
-Consulte o README dentro de `TrabalhoBingo/` para instruções específicas de compilação, execução e controles.
-
-## 🛠️ Compilação e execução
-
-É necessário ter um compilador C instalado, como o **GCC**.
-
-Para compilar um exercício individual:
+Com GCC e C11:
 
 ```bash
 gcc -std=c11 -Wall -Wextra -Wpedantic arquivo.c -o programa
 ```
 
-Para executar no Linux/macOS:
-
-```bash
-./programa
-```
-
-No Windows, execute o arquivo gerado:
-
-```powershell
-.\programa.exe
-```
-
-Se um exercício utilizar funções implementadas em `utils.c`, compile os arquivos correspondentes juntos e disponibilize os protótipos dessas funções:
+Quando um exercício utilizar funções de `utils.c`, compile os arquivos necessários em conjunto:
 
 ```bash
 gcc -std=c11 -Wall -Wextra -Wpedantic exercicio.c utils.c -o programa
 ```
 
-Os comandos podem variar conforme os arquivos e as dependências de cada exercício. Para o Bingo, siga as instruções específicas de seu diretório.
+Os comandos podem variar conforme os arquivos e os protótipos utilizados.
 
-## 🚧 Status
+## Status
 
-**Em desenvolvimento contínuo.**
-
-Este repositório reúne atividades acadêmicas e projetos de estudo. Cada exercício pode ter um foco didático específico; portanto, nem todos seguem necessariamente uma arquitetura de aplicação de produção.
-
-## 🎯 Objetivo
-
-Consolidar os fundamentos da programação em C por meio de prática contínua, resolução de problemas e desenvolvimento de projetos que demonstrem a aplicação dos conceitos estudados.
+Repositório de estudos em evolução. Os exercícios têm objetivos didáticos; nem todos constituem programas completos ou foram submetidos a uma suíte de testes automatizados.
