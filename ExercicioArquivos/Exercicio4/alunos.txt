@@ -1,0 +1,9 @@
+101
+Joao Silva
+8.50
+102
+Maria Souza
+9.00
+103
+Pedro Santos
+7.50
