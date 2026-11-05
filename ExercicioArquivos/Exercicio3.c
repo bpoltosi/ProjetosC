@@ -3,7 +3,6 @@
 2) Crie também a biblioteca arquivos, com a função ler_vetor_arquivo vista nesta aula
 3) Escreva um programa que use as duas bibliotecas para ler numeros.txt e mostrar as estatísticas dos valores
 4) Compile passando os três arquivos .c ao gcc
-
 */
 
 #include <stdio.h>
@@ -14,7 +13,6 @@
 #define MAX_NUMEROS 1000
 
 //    Implementações
-
 float media(int vet[], int tamanho) {
     if (tamanho <= 0) return 0.0f;
     int soma = 0;
@@ -57,6 +55,8 @@ int ler_vetor_arquivo(char *nome_arquivo, int vet[], int tamanho_max) {
     return quantidade;
 }
 
+
+//    Funcao MAIN
 int main (void)
 {
     int vetor[MAX_NUMEROS];
